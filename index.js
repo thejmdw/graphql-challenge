@@ -4,20 +4,27 @@ const { ApolloServer, gql } = require('apollo-server');
 // that together define the "shape" of queries that are executed against
 // your data.
 const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+    # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
-  # This "App" type defines the queryable fields for every app in our data source.
-  type App {
-    id: String
-    name: String
-}
+    # This "App" type defines the queryable fields for every app in our data source.
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "apps" query returns an array of zero or more Apps (defined above).
-  type Query {
-    apps: [App]
-  }
+    type App {
+        id: String
+        name: String
+    }
+    
+    type Stage {
+        id: String
+        name: String
+    }
+
+    # The "Query" type is special: it lists all of the available queries that
+    # clients can execute, along with the return type for each. In this
+    # case, the "apps" query returns an array of zero or more Apps (defined above).
+    type Query {
+        apps: [App]
+        stages: [Stage]
+    }
 `;
 
 const apps =  [
@@ -38,7 +45,7 @@ const stages = [
     },
     {
         id: "a6bb97dc-224c-4f8f-9af7-fd8b5731840f",
-        name: "Fo\’shizzle Stage",
+        name: "Fo’shizzle Stage",
     }
 ];
 
@@ -103,6 +110,7 @@ const resolvers = {
     //such as by fetching data from a back-end database or a third-party API.
     Query: {
       apps: () => apps,
+      stages: () => stages,
     },
   };
  
