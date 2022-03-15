@@ -38,6 +38,7 @@ const typeDefs = gql`
         events: [Event]
         app(id: ID!): App
         stage(id: ID!): Stage
+        event(id: ID!): Event
     }
 `;
 
@@ -128,6 +129,7 @@ const resolvers = {
       events: () => events,
       app: (parent, args, context, info) => apps.find(app => app.id === args.id),
       stage: (parent, args) => stages.find(stage => stage.id === args.id),
+      event: (parent, args) => events.find(events => events.id === args.id),
     },
   };
  
