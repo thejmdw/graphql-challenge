@@ -45,6 +45,7 @@ const typeDefs = gql`
         
         #Search By Name
         stageByName(name: String!): [Stage]!
+        eventByName(name: String!): [Event]!
     }
 `;
 
@@ -137,8 +138,9 @@ const resolvers = {
       stage: (parent, args) => stages.find(stage => stage.id === args.id),
       event: (parent, args) => events.find(events => events.id === args.id),
       stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
+      eventByName: (parent, args) => events.filter(event => event.name === args.name),
     },
-  };
+};
  
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
