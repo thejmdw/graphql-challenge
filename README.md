@@ -1,14 +1,12 @@
-# Aloompa Coding Challenge
+# Aloompa Coding Challenge: GraphQl API
 
-## Aloompa Coding Challenge: GraphQl API
-
-#### Description:
+### Description:
 
 Create a GraphQL API to query apps, events, and stages using this [data set](https://assets.aloompa.com.s3.amazonaws.com/rappers/hiphopfest.json)
 
 Your project must use Node (TypeScript or JavaScript) for the query resolvers. You may use any libraries or frameworks as dependencies, but the code inside the project must be your own.
 
-#### API Requirements:
+### API Requirements:
 - [x] You should be able to list all of the apps
 - [x] You should be able to query a single app
 - [x] You should be able to list all the stages
@@ -24,7 +22,7 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 - [x] You should be able to list the events at a stage
 - [x] You should be able to add, update and remove all entities
 
-#### Extra Credit:
+### Extra Credit:
 - [ ] Your project is deployed to AWS
 - [x] Your repo has a README
 - [ ] You use TypeScript
@@ -32,17 +30,17 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 ---
 # Solution
 
-#### Technologies Used
+### Technologies Used
 
 
 ![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
 
 ### Running the API
-##### Prerequisites
+#### Prerequisites
 
 1. Install [Node.js](https://nodejs.org/en/)
 
-##### Installation
+#### Installation
 
 1. Clone this repository and change to the directory in the  terminal.
     ```
