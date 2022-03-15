@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { v4: uuidv4 } = require('uuid')
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -46,6 +47,11 @@ const typeDefs = gql`
         #Search By Name
         stageByName(name: String!): [Stage]!
         eventByName(name: String!): [Event]!
+    }
+
+    #MUTATIONS
+    type Mutation {
+        addApp(name: String!): App
     }
 `;
 
@@ -124,6 +130,16 @@ const events = [
     },
 ];
 
+const addApp = args => {
+    const id = uuidv4()
+    const newApp = {
+        id:  id,
+        name: args.name
+    }
+    apps.push(newApp)
+    return newApp
+}
+
   // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
@@ -131,15 +147,18 @@ const resolvers = {
     // for a single field in your schema. It can populate that data in any way you define, 
     //such as by fetching data from a back-end database or a third-party API.
     Query: {
-      apps: () => apps,
-      stages: () => stages,
-      events: () => events,
-      app: (parent, args, context, info) => apps.find(app => app.id === args.id),
-      stage: (parent, args) => stages.find(stage => stage.id === args.id),
-      event: (parent, args) => events.find(events => events.id === args.id),
-      stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
-      eventByName: (parent, args) => events.filter(event => event.name === args.name),
+        apps: () => apps,
+        stages: () => stages,
+        events: () => events,
+        app: (parent, args, context, info) => apps.find(app => app.id === args.id),
+        stage: (parent, args) => stages.find(stage => stage.id === args.id),
+        event: (parent, args) => events.find(events => events.id === args.id),
+        stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
+        eventByName: (parent, args) => events.filter(event => event.name === args.name),
     },
+    Mutation: {
+        addApp: async (parent, args) => addApp(args),
+    }
 };
  
 // The ApolloServer constructor requires two parameters: your schema
