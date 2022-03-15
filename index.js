@@ -66,6 +66,7 @@ const typeDefs = gql`
             endsAt: GraphQLLong
             ): Event
         updateApp(id: ID!, name: String): App
+        updateStage(id: ID!, name: String): Stage
         removeApp(id: ID!): App
         removeStage(id: ID!): Stage
         removeEvent(id: ID!): Event
@@ -189,6 +190,14 @@ const updateApp = args => {
         }
     }
 }
+const updateStage = args => {
+    for (let i in stages) {
+        if (stages[i].id === args.id) {
+            stages[i].name = args.name
+            return stages[i]
+        }
+    }
+}
 
 const removeApp = args => {
     for (let i in apps) {
@@ -236,6 +245,7 @@ const resolvers = {
         addStage: async (parent, args) => addStage(args),
         addEvent: async (parent, args) => addEvent(args),
         updateApp: async (parent, args) => updateApp(args),
+        updateStage: async (parent, args) => updateStage(args),
         removeApp: async (parent, args) => removeApp(args),
         removeStage: async (parent, args) => removeStage(args),
         removeEvent: async (parent, args) => removeEvent(args),
