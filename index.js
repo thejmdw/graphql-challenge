@@ -65,6 +65,7 @@ const typeDefs = gql`
             startsAt: GraphQLLong
             endsAt: GraphQLLong
             ): Event
+        removeApp(id: ID!): App
     }
 `;
 
@@ -142,7 +143,7 @@ const events = [
         endsAt: 1577930400
     },
 ];
-
+//Add Mutation Resolver Functions
 const addApp = args => {
     const id = uuidv4()
     const newApp = {
@@ -177,6 +178,14 @@ const addEvent = args => {
     return newEvent
 }
 
+const removeApp = args => {
+    for (let i in apps) {
+        if(apps[i].id === args.id) {
+            apps.splice(i, 1)
+        }
+    }
+    return args.id
+}
   // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
@@ -197,6 +206,7 @@ const resolvers = {
         addApp: async (parent, args) => addApp(args),
         addStage: async (parent, args) => addStage(args),
         addEvent: async (parent, args) => addEvent(args),
+        removeApp: async (parent, args) => removeApp(args),
     }
 };
  
