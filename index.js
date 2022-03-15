@@ -37,19 +37,15 @@ const typeDefs = gql`
     # clients can execute, along with the return type for each. In this
     # case, the "apps" query returns an array of zero or more Apps (defined above).
     type Query {
-        #List All
         apps: [App]
         stages: [Stage]
         events: [Event]
-
-        #List Single
         app(id: ID!): App
         stage(id: ID!): Stage
         event(id: ID!): Event
-        
-        #Search By Name
         stageByName(name: String!): [Stage]!
         eventByName(name: String!): [Event]!
+        eventsInApp(appId: String!): [Event]!
     }
 
     #MUTATIONS
@@ -157,6 +153,7 @@ const events = [
         endsAt: 1577930400
     },
 ];
+
 //Add Mutation Resolver Functions
 const addApp = args => {
     const id = uuidv4()
@@ -264,6 +261,16 @@ const resolvers = {
         event: (parent, args) => events.find(events => events.id === args.id),
         stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
         eventByName: (parent, args) => events.filter(event => event.name === args.name),
+        eventsInApp: (parent,  args) => {
+            let eventIdsPerAppEvent = []
+            let eventsInApp = []
+            for (let i in events) {
+                if (eventIdsPerAppEvent.indexOf(events[i].eventId) < 0 && events[i].appId === args.appId) {
+                    eventsInApp.push(events[i])
+                }
+            }
+            return eventsInApp
+        },
     },
     Mutation: {
         addApp: async (parent, args) => addApp(args),
