@@ -33,12 +33,18 @@ const typeDefs = gql`
     # clients can execute, along with the return type for each. In this
     # case, the "apps" query returns an array of zero or more Apps (defined above).
     type Query {
+        #List All
         apps: [App]
         stages: [Stage]
         events: [Event]
+
+        #List Single
         app(id: ID!): App
         stage(id: ID!): Stage
         event(id: ID!): Event
+        
+        #Search By Name
+        stageByName(name: String!): [Stage]!
     }
 `;
 
@@ -130,6 +136,7 @@ const resolvers = {
       app: (parent, args, context, info) => apps.find(app => app.id === args.id),
       stage: (parent, args) => stages.find(stage => stage.id === args.id),
       event: (parent, args) => events.find(events => events.id === args.id),
+      stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
     },
   };
  
