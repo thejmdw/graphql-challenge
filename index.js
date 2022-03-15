@@ -48,6 +48,7 @@ const typeDefs = gql`
         eventsInApp(appId: String!): [Event]!
         stagesInApp(appId: String!): [Stage]!
         stageInEvent(eventId: String!): Stage
+        eventsAtStage(stageId: String!): [Event]!
     }
 
     #MUTATIONS
@@ -263,6 +264,7 @@ const resolvers = {
         event: (parent, args) => events.find(events => events.id === args.id),
         stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
         eventByName: (parent, args) => events.filter(event => event.name === args.name),
+        eventsAtStage: (parent, args) => events.filter(event => event.stageId === args.stageId),
         eventsInApp: (parent,  args) => {
             let eventIdsPerAppEvent = []
             let eventsInApp = []
