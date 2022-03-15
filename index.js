@@ -18,12 +18,24 @@ const typeDefs = gql`
         name: String
     }
 
+    type Event {
+        id: String
+        appId: String
+        stageId: String
+        name: String
+        description: String
+        image: String
+        startsAt: Int
+        endsAt: Int
+    }
+
     # The "Query" type is special: it lists all of the available queries that
     # clients can execute, along with the return type for each. In this
     # case, the "apps" query returns an array of zero or more Apps (defined above).
     type Query {
         apps: [App]
         stages: [Stage]
+        events: [Event]
     }
 `;
 
@@ -111,6 +123,7 @@ const resolvers = {
     Query: {
       apps: () => apps,
       stages: () => stages,
+      events: () => events,
     },
   };
  
