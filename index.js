@@ -47,6 +47,7 @@ const typeDefs = gql`
         eventByName(name: String!): [Event]!
         eventsInApp(appId: String!): [Event]!
         stagesInApp(appId: String!): [Stage]!
+        stageInEvent(eventId: String!): Stage
     }
 
     #MUTATIONS
@@ -273,21 +274,37 @@ const resolvers = {
             return eventsInApp
         },
         stagesInApp: (parent, args) => {
-            
-            let stageIdsPerAppEvent = []
-            
+            let allStageIdsInApp = []
+
             for (let i in events) {
-                if (stageIdsPerAppEvent.indexOf(events[i].stageId) < 0 && events[i].appId === args.appId) {
-                    stageIdsPerAppEvent.push(events[i].stageId)
-                }
+              if (events[i].appId === args.appId) {
+                allStageIdsInApp.push(events[i].stageId)
+              } 
             }
+            let uniqueStageIdsInApp = [...new Set(allStageIdsInApp)]
+          
             let stagesInApp = []
             
-            for (let i in stageIdsPerAppEvent) {
-                stagesInApp.push(stages[i])
+            for (let i in uniqueStageIdsInApp) {
+              for (let j in stages) {
+                if (stages[j].id === uniqueStageIdsInApp[i]) {
+                  stagesInApp.push(stages[j])
+                }
+              }
+            }
+            return stagesInApp
+        },
+        stageInEvent: (parent, args) => {
+            let stageId = ""
+            
+            for (let i in events) {
+                if (events[i].id === args.eventId) {
+                    stageId = events[i].stageId
+                    break
+                }
             }
             
-            return stagesInApp
+            return stages.find(stage => stage.id === stageId)
         },
     },
     Mutation: {
