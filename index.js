@@ -52,6 +52,7 @@ const typeDefs = gql`
     #MUTATIONS
     type Mutation {
         addApp(name: String!): App
+        addStage(name: String!): Stage
     }
 `;
 
@@ -139,6 +140,15 @@ const addApp = args => {
     apps.push(newApp)
     return newApp
 }
+const addStage = args => {
+    const id = uuidv4()
+    const newStage = {
+        id:  id,
+        name: args.name
+    }
+    stages.push(newStage)
+    return newStage
+}
 
   // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
@@ -158,6 +168,7 @@ const resolvers = {
     },
     Mutation: {
         addApp: async (parent, args) => addApp(args),
+        addStage: async (parent, args) => addStage(args),
     }
 };
  
