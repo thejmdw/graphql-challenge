@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
 const { v4: uuidv4 } = require('uuid')
+const { GraphQLLong } = require('graphql-type-long')
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -8,6 +9,8 @@ const typeDefs = gql`
     # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
     # This "App" type defines the queryable fields for every app in our data source.
+
+    scalar GraphQLLong
 
     type App {
         id: String
@@ -53,6 +56,15 @@ const typeDefs = gql`
     type Mutation {
         addApp(name: String!): App
         addStage(name: String!): Stage
+        addEvent(
+            appId: String! 
+            stageId: String!
+            name: String!
+            description: String!
+            image: String!
+            startsAt: GraphQLLong
+            endsAt: GraphQLLong
+            ): Event
     }
 `;
 
@@ -149,6 +161,21 @@ const addStage = args => {
     stages.push(newStage)
     return newStage
 }
+const addEvent = args => {
+    const id = uuidv4()
+    const newEvent = {
+        id:  id,
+        appId: args.appId,
+        stageId: args.stageId,
+        name: args.name,
+        description: args.description,
+        image: args.image,
+        startsAt: args.startsAt,
+        endsAt: args.endsAt
+    }
+    events.push(newEvent)
+    return newEvent
+}
 
   // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
@@ -169,6 +196,7 @@ const resolvers = {
     Mutation: {
         addApp: async (parent, args) => addApp(args),
         addStage: async (parent, args) => addStage(args),
+        addEvent: async (parent, args) => addEvent(args),
     }
 };
  
