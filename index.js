@@ -49,6 +49,7 @@ const typeDefs = gql`
         stagesInApp(appId: String!): [Stage]!
         stageInEvent(eventId: String!): Stage
         eventsAtStage(stageId: String!): [Event]!
+        eventsBetweenTwoDates(startsAt: GraphQLLong!, endsAt: GraphQLLong!): [Event]
     }
 
     #MUTATIONS
@@ -264,7 +265,6 @@ const resolvers = {
         event: (parent, args) => events.find(events => events.id === args.id),
         stageByName: (parent, args) => stages.filter(stage => stage.name === args.name),
         eventByName: (parent, args) => events.filter(event => event.name === args.name),
-        eventsAtStage: (parent, args) => events.filter(event => event.stageId === args.stageId),
         eventsInApp: (parent,  args) => {
             let eventIdsPerAppEvent = []
             let eventsInApp = []
@@ -277,22 +277,22 @@ const resolvers = {
         },
         stagesInApp: (parent, args) => {
             let allStageIdsInApp = []
-
+            
             for (let i in events) {
-              if (events[i].appId === args.appId) {
-                allStageIdsInApp.push(events[i].stageId)
-              } 
+                if (events[i].appId === args.appId) {
+                    allStageIdsInApp.push(events[i].stageId)
+                } 
             }
             let uniqueStageIdsInApp = [...new Set(allStageIdsInApp)]
-          
+            
             let stagesInApp = []
             
             for (let i in uniqueStageIdsInApp) {
-              for (let j in stages) {
-                if (stages[j].id === uniqueStageIdsInApp[i]) {
-                  stagesInApp.push(stages[j])
+                for (let j in stages) {
+                    if (stages[j].id === uniqueStageIdsInApp[i]) {
+                        stagesInApp.push(stages[j])
+                    }
                 }
-              }
             }
             return stagesInApp
         },
@@ -307,6 +307,19 @@ const resolvers = {
             }
             
             return stages.find(stage => stage.id === stageId)
+        },
+        eventsAtStage: (parent, args) => events.filter(event => event.stageId === args.stageId),
+        eventsBetweenTwoDates: (parent, args) => {
+            
+            let eventsDuringTimes = []
+            
+            for ( let i in events) {
+                if (events[i].startsAt >= args.startsAt && events[i].endsAt <= args.endsAt) {
+                    eventsDuringTimes.push(events[i])
+                }
+            }
+            
+            return eventsDuringTimes
         },
     },
     Mutation: {
