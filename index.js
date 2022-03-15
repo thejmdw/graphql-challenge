@@ -65,6 +65,7 @@ const typeDefs = gql`
             startsAt: GraphQLLong
             endsAt: GraphQLLong
             ): Event
+        updateApp(id: ID!, name: String): App
         removeApp(id: ID!): App
         removeStage(id: ID!): Stage
         removeEvent(id: ID!): Event
@@ -180,6 +181,15 @@ const addEvent = args => {
     return newEvent
 }
 
+const updateApp = args => {
+    for (let i in apps) {
+        if (apps[i].id === args.id) {
+            apps[i].name = args.name
+            return apps[i]
+        }
+    }
+}
+
 const removeApp = args => {
     for (let i in apps) {
         if(apps[i].id === args.id) {
@@ -204,6 +214,7 @@ const removeEvent = args => {
     }
     return args.id
 }
+
   // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
@@ -224,6 +235,7 @@ const resolvers = {
         addApp: async (parent, args) => addApp(args),
         addStage: async (parent, args) => addStage(args),
         addEvent: async (parent, args) => addEvent(args),
+        updateApp: async (parent, args) => updateApp(args),
         removeApp: async (parent, args) => removeApp(args),
         removeStage: async (parent, args) => removeStage(args),
         removeEvent: async (parent, args) => removeEvent(args),
