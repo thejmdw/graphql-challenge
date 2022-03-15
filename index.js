@@ -67,6 +67,16 @@ const typeDefs = gql`
             ): Event
         updateApp(id: ID!, name: String): App
         updateStage(id: ID!, name: String): Stage
+        updateEvent(
+            id: ID!
+            appId: String 
+            stageId: String
+            name: String
+            description: String
+            image: String
+            startsAt: GraphQLLong
+            endsAt: GraphQLLong
+            ): Event
         removeApp(id: ID!): App
         removeStage(id: ID!): Stage
         removeEvent(id: ID!): Event
@@ -181,7 +191,7 @@ const addEvent = args => {
     events.push(newEvent)
     return newEvent
 }
-
+//Update Mutation Resolver Functions
 const updateApp = args => {
     for (let i in apps) {
         if (apps[i].id === args.id) {
@@ -198,7 +208,22 @@ const updateStage = args => {
         }
     }
 }
+const updateEvent = args => {
+    for (let i in events) {
+        if (events[i].id === args.id) {
 
+            args.appId ? events[i].appId = args.appId : ""
+            args.stageId ? events[i].stageId = args.stageId : ""
+            args.name ? events[i].name = args.name : ""
+            args.description ? events[i].description = args.description : ""
+            args.image ? events[i].image = args.image : ""
+            args.startsAt ? events[i].startsAt = args.startsAt : ""
+            args.endsAt ? events[i].endsAt = args.endsAt : ""
+            return events[i]
+        }
+    }
+}
+//Remove Mutation Resolver Functions
 const removeApp = args => {
     for (let i in apps) {
         if(apps[i].id === args.id) {
@@ -224,7 +249,7 @@ const removeEvent = args => {
     return args.id
 }
 
-  // Resolvers define the technique for fetching the types defined in the
+// Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
     // A resolver is a function that's responsible for populating the data 
@@ -246,6 +271,7 @@ const resolvers = {
         addEvent: async (parent, args) => addEvent(args),
         updateApp: async (parent, args) => updateApp(args),
         updateStage: async (parent, args) => updateStage(args),
+        updateEvent: async (parent, args) => updateEvent(args),
         removeApp: async (parent, args) => removeApp(args),
         removeStage: async (parent, args) => removeStage(args),
         removeEvent: async (parent, args) => removeEvent(args),
