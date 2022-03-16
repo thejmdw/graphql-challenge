@@ -29,7 +29,7 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 
 ---
 
-# Solution
+# JavaScript Solution
 
 
 ### Technologies Used
