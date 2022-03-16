@@ -23,7 +23,7 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 - [x] You should be able to add, update and remove all entities
 
 ### Extra Credit:
-- [ ] Your project is deployed to AWS
+- [x] Your project is deployed to AWS
 - [x] Your repo has a README
 - [ ] You use TypeScript
 
