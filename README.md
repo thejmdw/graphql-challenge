@@ -23,11 +23,12 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 - [x] You should be able to add, update and remove all entities
 
 ### Extra Credit:
-- [ ] Your project is deployed to AWS
+- [x] Your project is deployed to AWS
 - [x] Your repo has a README
 - [ ] You use TypeScript
 
 ---
+
 # Solution
 
 ### Technologies Used
@@ -36,6 +37,12 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 ![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
 
 ### Running the API
+
+### **Short Way
+
+1. Click [Here](https://bzbkpb4mae.execute-api.us-east-1.amazonaws.com/dev/) to go straight to the Apollo Studio.
+
+### **Long Way
 #### Prerequisites
 
 1. Install [Node.js](https://nodejs.org/en/)
