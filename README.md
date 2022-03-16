@@ -2,7 +2,7 @@
 
 ### Description:
 
-Create a GraphQL API to query apps, events, and stages using this [data set](https://assets.aloompa.com.s3.amazonaws.com/rappers/hiphopfest.json)
+Create a GraphQL API to query apps, events, and stages using this [data set](https://assets.aloompa.com.s3.amazonaws.com/rappers/hiphopfest.json).
 
 Your project must use Node (TypeScript or JavaScript) for the query resolvers. You may use any libraries or frameworks as dependencies, but the code inside the project must be your own.
 
@@ -40,7 +40,7 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 
 ### **Short Way
 
-1. Click [Here](https://bzbkpb4mae.execute-api.us-east-1.amazonaws.com/dev/) to go straight to the Apollo Studio.
+1. Click [Here](https://bzbkpb4mae.execute-api.us-east-1.amazonaws.com/dev/) to go straight to the API and start exploring with Apollo Studio.
 
 ### **Long Way
 #### Prerequisites
