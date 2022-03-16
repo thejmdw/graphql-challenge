@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-lambda');
 const { v4: uuidv4 } = require('uuid')
 const { GraphQLLong } = require('graphql-type-long')
 
@@ -37,9 +37,9 @@ const typeDefs = gql`
     # clients can execute, along with the return type for each. In this
     # case, the "apps" query returns an array of zero or more Apps (defined above).
     type Query {
-        apps: [App]
-        stages: [Stage]
-        events: [Event]
+        apps: [App]!
+        stages: [Stage]!
+        events: [Event]!
         app(id: ID!): App
         stage(id: ID!): Stage
         event(id: ID!): Event
@@ -65,11 +65,11 @@ const typeDefs = gql`
             startsAt: GraphQLLong
             endsAt: GraphQLLong
             ): Event
-        updateApp(id: ID!, name: String): App
-        updateStage(id: ID!, name: String): Stage
+        updateApp(id: ID!, name: String!): App
+        updateStage(id: ID!, name: String!): Stage
         updateEvent(
             id: ID!
-            appId: String 
+            appId: String
             stageId: String
             name: String
             description: String
@@ -340,6 +340,8 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers });
 
 // The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+// server.listen().then(({ url }) => {
+//   console.log(`🚀  Server ready at ${url}`);
+// });
+
+exports.graphqlHandler = server.createHandler();
