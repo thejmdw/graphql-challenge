@@ -38,11 +38,11 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 
 ### Running the API
 
-### **Short Way
+### **AWS
 
-1. Click [Here](https://cgawyj2h8b.execute-api.us-east-1.amazonaws.com/dev/) to go straight to the API and start exploring with Apollo Studio.
+1. Click [Here](https://skeshla775.execute-api.us-east-1.amazonaws.com/dev/) to go straight to the API and start exploring with Apollo Studio.
 
-### **Long Way
+### **Locally
 #### Prerequisites
 
 1. Install [Node.js](https://nodejs.org/en/)
