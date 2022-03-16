@@ -25,14 +25,14 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
 ### Extra Credit:
 - [x] Your project is deployed to AWS
 - [x] Your repo has a README
-- [ ] You use TypeScript
+- [ ] You use TypeScript  ([Typescript Solution Here](https://github.com/thejmdw/graphql-challenge-typescript))
 
 ---
 
 # Solution
 
-### Technologies Used
 
+### Technologies Used
 
 ![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
 
@@ -66,4 +66,4 @@ Your project must use Node (TypeScript or JavaScript) for the query resolvers. Y
     ```
      npm start
     ```
-4. Point browser to [http://localhost:4000](http://localhost:4000) and click "Query your server" to explore with graph with Apollo Studio.
+4. Point browser to [http://localhost:4000](http://localhost:4000) to start exploring the graph with Apollo Studio.
